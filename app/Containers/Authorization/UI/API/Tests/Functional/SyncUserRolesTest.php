@@ -2,16 +2,20 @@
 
 namespace App\Containers\Authorization\UI\API\Tests\Functional;
 
+use Illuminate\Support\Arr;
 use App\Containers\Authorization\Models\Role;
-use App\Containers\Authorization\Tests\TestCase;
+use App\Containers\Authorization\Tests\ApiTestCase;
 use App\Containers\User\Models\User;
 
 /**
  * Class SyncUserRolesTest.
  *
+ * @group authorization
+ * @group api
+ *
  * @author  Mahmoud Zalt <mahmoud@zalt.me>
  */
-class SyncUserRolesTest extends TestCase
+class SyncUserRolesTest extends ApiTestCase
 {
 
     protected $endpoint = 'post@v1/roles/sync?include=roles';
@@ -21,6 +25,9 @@ class SyncUserRolesTest extends TestCase
         'permissions' => 'manage-admins-access',
     ];
 
+    /**
+     * @test
+     */
     public function testSyncMultipleRolesOnUser()
     {
         $role1 = factory(Role::class)->create(['display_name' => '111']);
@@ -48,7 +55,7 @@ class SyncUserRolesTest extends TestCase
 
         $this->assertTrue(count($responseContent->data->roles->data) > 1);
 
-        $roleIds = array_pluck($responseContent->data->roles->data, 'id');
+        $roleIds = Arr::pluck($responseContent->data->roles->data, 'id');
         $this->assertContains($data['roles_ids'][0], $roleIds);
 
         $this->assertContains($data['roles_ids'][1], $roleIds);

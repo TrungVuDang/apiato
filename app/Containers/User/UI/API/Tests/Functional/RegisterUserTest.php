@@ -2,14 +2,17 @@
 
 namespace App\Containers\User\UI\API\Tests\Functional;
 
-use App\Containers\User\Tests\TestCase;
+use App\Containers\User\Tests\ApiTestCase;
 
 /**
  * Class RegisterUserTest.
  *
+ * @group user
+ * @group api
+ *
  * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
-class RegisterUserTest extends TestCase
+class RegisterUserTest extends ApiTestCase
 {
 
     protected $endpoint = 'post@v1/register';
@@ -21,10 +24,13 @@ class RegisterUserTest extends TestCase
         'permissions' => '',
     ];
 
+    /**
+     * @test
+     */
     public function testRegisterNewUserWithCredentials_()
     {
         $data = [
-            'email'    => 'apiato@mail.dev',
+            'email'    => 'apiato@mail.test',
             'name'     => 'Apiato',
             'password' => 'secretpass',
         ];
@@ -48,10 +54,13 @@ class RegisterUserTest extends TestCase
         $this->assertDatabaseHas('users', ['email' => $data['email']]);
     }
 
+    /**
+     * @test
+     */
     public function testRegisterNewUserUsingGetVerb()
     {
         $data = [
-            'email'    => 'apiato@mail.dev',
+            'email'    => 'apiato@mail.test',
             'name'     => 'Apiato',
             'password' => 'secret',
         ];
@@ -67,10 +76,13 @@ class RegisterUserTest extends TestCase
         ]);
     }
 
+    /**
+     * @test
+     */
     public function testRegisterExistingUser()
     {
         $userDetails = [
-            'email'    => 'apiato@mail.dev',
+            'email'    => 'apiato@mail.test',
             'name'     => 'Apiato',
             'password' => 'secret',
         ];
@@ -95,6 +107,9 @@ class RegisterUserTest extends TestCase
         ]);
     }
 
+    /**
+     * @test
+     */
     public function testRegisterNewUserWithoutEmail()
     {
         $data = [
@@ -114,10 +129,13 @@ class RegisterUserTest extends TestCase
         ]);
     }
 
+    /**
+     * @test
+     */
     public function testRegisterNewUserWithoutName()
     {
         $data = [
-            'email'    => 'apiato@mail.dev',
+            'email'    => 'apiato@mail.test',
             'password' => 'secret',
         ];
 
@@ -133,10 +151,13 @@ class RegisterUserTest extends TestCase
         ]);
     }
 
+    /**
+     * @test
+     */
     public function testRegisterNewUserWithoutPassword()
     {
         $data = [
-            'email' => 'apiato@mail.dev',
+            'email' => 'apiato@mail.test',
             'name'  => 'Apiato',
         ];
 
@@ -151,10 +172,13 @@ class RegisterUserTest extends TestCase
         ]);
     }
 
+    /**
+     * @test
+     */
     public function testRegisterNewUserWithInvalidEmail()
     {
         $data = [
-            'email'    => 'missing-at.dev',
+            'email'    => 'missing-at.test',
             'name'     => 'Apiato',
             'password' => 'secret',
         ];

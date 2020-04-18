@@ -3,14 +3,17 @@
 namespace App\Containers\User\UI\API\Tests\Functional;
 
 use App\Containers\User\Models\User;
-use App\Containers\User\Tests\TestCase;
+use App\Containers\User\Tests\ApiTestCase;
 
 /**
  * Class CreateAdminTest.
  *
+ * @group user
+ * @group api
+ *
  * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
-class CreateAdminTest extends TestCase
+class CreateAdminTest extends ApiTestCase
 {
 
     protected $endpoint = 'post@v1/admins';
@@ -20,10 +23,13 @@ class CreateAdminTest extends TestCase
         'roles'       => '',
     ];
 
+    /**
+     * @test
+     */
     public function testCreateAdmin_()
     {
         $data = [
-            'email'    => 'apiato@admin.dev',
+            'email'    => 'apiato@admin.test',
             'name'     => 'admin',
             'password' => 'secret',
         ];
